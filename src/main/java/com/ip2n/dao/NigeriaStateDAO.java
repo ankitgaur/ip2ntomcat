@@ -30,7 +30,7 @@ public class NigeriaStateDAO {
 
 	public List<NigeriaState> getAllNigeriaStates() {
 
-		final String sql = "Select id, name, abbr, created_by, created_on, updated_by, updated_on, govts from nigeria_states";
+		final String sql = "Select id, name, curr_govt, created_by, created_on, updated_by, updated_on, govts from nigeria_states";
 		List<NigeriaState> states = jdbcTemplate.query(sql,
 				new BeanPropertyRowMapper<NigeriaState>(NigeriaState.class));
 		return states;
@@ -39,7 +39,7 @@ public class NigeriaStateDAO {
 
 	public NigeriaState getNigeriaStateById(long id) {
 
-		final String sql = "Select id, name, abbr, created_by, created_on, updated_by, updated_on, govts from nigeria_states";
+		final String sql = "Select id, name, curr_govt, created_by, created_on, updated_by, updated_on, govts from nigeria_states";
 		NigeriaState state = jdbcTemplate.queryForObject(sql,
 				new BeanPropertyRowMapper<NigeriaState>(NigeriaState.class));
 		return state;
@@ -47,7 +47,7 @@ public class NigeriaStateDAO {
 	}
 
 	public long createNigeriaState(final NigeriaState state) {
-		final String sql = "insert into nigeria_states (name, abbr, govts, created_by, created_on) VALUES (?,?,?,?,?)";
+		final String sql = "insert into nigeria_states (name, curr_govt, govts, created_by, created_on) VALUES (?,?,?,?,?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con)
@@ -56,7 +56,7 @@ public class NigeriaStateDAO {
 						new String[] { "id" });
 
 				pst.setString(1, state.getName());
-				pst.setString(2, state.getAbbr());
+				pst.setString(2, state.getCurrGovt());
 				pst.setString(3, state.getGovts());
 				pst.setString(4, state.getCreatedBy());
 				pst.setTimestamp(5,
@@ -72,7 +72,7 @@ public class NigeriaStateDAO {
 	}
 
 	public long updateNigeriaState(final NigeriaState state) {
-		final String sql = "update nigeria_states set name = ?, abbr = ?, govts = ?, updated_by = ?, updated_on = ? where id = ?";
+		final String sql = "update nigeria_states set name = ?, curr_govt = ?, govts = ?, updated_by = ?, updated_on = ? where id = ?";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection con)
@@ -81,7 +81,7 @@ public class NigeriaStateDAO {
 						new String[] { "id" });
 
 				pst.setString(1, state.getName());
-				pst.setString(2, state.getAbbr());
+				pst.setString(2, state.getCurrGovt());
 				pst.setString(3, state.getGovts());
 				pst.setString(4, state.getUpdatedBy());
 				pst.setTimestamp(5,

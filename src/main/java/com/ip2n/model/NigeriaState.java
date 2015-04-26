@@ -14,7 +14,7 @@ public class NigeriaState {
 
 	private long id;
 	private String name;
-	private String abbr;
+	private String currGovt;
 	private String govts;
 	private String createdBy;
 	private String updatedBy;
@@ -30,7 +30,7 @@ public class NigeriaState {
 
 		id = stateVO.getId();
 		name = stateVO.getName();
-		abbr = stateVO.getAbbr();
+		currGovt = stateVO.getCurrGovt();
 
 		if (stateVO.getGovts() != null && !stateVO.getGovts().isEmpty()) {
 
@@ -58,14 +58,6 @@ public class NigeriaState {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAbbr() {
-		return abbr;
-	}
-
-	public void setAbbr(String abbr) {
-		this.abbr = abbr;
 	}
 
 	public String getGovts() {
@@ -106,6 +98,14 @@ public class NigeriaState {
 
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+
+	public String getCurrGovt() {
+		return currGovt;
+	}
+
+	public void setCurrGovt(String currGovt) {
+		this.currGovt = currGovt;
 	}
 
 }

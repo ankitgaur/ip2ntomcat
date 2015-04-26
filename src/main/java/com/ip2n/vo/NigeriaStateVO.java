@@ -16,7 +16,7 @@ public class NigeriaStateVO {
 
 	private long id;
 	private String name;
-	private String abbr;
+	private String currGovt;
 	private List<String> govts;
 	private String createdBy;
 	private String updatedBy;
@@ -37,14 +37,6 @@ public class NigeriaStateVO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAbbr() {
-		return abbr;
-	}
-
-	public void setAbbr(String abbr) {
-		this.abbr = abbr;
 	}
 
 	public List<String> getGovts() {
@@ -94,7 +86,7 @@ public class NigeriaStateVO {
 			JsonMappingException, IOException {
 		id = state.getId();
 		name = state.getName();
-		abbr = state.getAbbr();
+		currGovt = state.getCurrGovt();
 
 		if (state.getGovts() != null && !state.getGovts().isEmpty()) {
 			List<String> cats = new ArrayList<String>();
@@ -109,5 +101,13 @@ public class NigeriaStateVO {
 		createdOn = state.getCreatedOn();
 		updatedBy = state.getUpdatedBy();
 		updatedOn = state.getUpdatedOn();
+	}
+
+	public String getCurrGovt() {
+		return currGovt;
+	}
+
+	public void setCurrGovt(String currGovt) {
+		this.currGovt = currGovt;
 	}
 }
