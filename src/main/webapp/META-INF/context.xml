@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML>
+
+<Context antiJARLocking="true" path="SupportDataUtils">
+	<!-- <Realm className="com.dish.vm.realm.NoLDAPRealm" dataSourceName="MSSQL_CORP_VMDATADB" 
+		userNameCol="user_name" userRoleTable="vmdata.dbo.user_roles" roleNameCol="name" 
+		roleIdCol="role_id" roleTable="vmdata.dbo.roles"/> -->
+</Context>
+
+<!-- PostgreSQL example, remember to include the PostgreSQL jar in the servlet 
+	container lib folder This example uses the Tomcat JDBC Connection pool, change 
+	factory parameter for other implementations -->
+<!-- <Resource name="jdbc/db" auth="Container" type="javax.sql.DataSource" 
+	factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" defaultAutoCommit="true" 
+	driverClassName="org.postgresql.Driver" url="jdbc:postgresql://host/dbname?user=dbuser&amp;password=dbpassword"/> -->
+
+<!-- MySQL example, remember to include the MySQL jar in the servlet container 
+	lib folder. This example uses the Tomcat JDBC Connection pool, change factory 
+	parameter for other implementations -->
+<!-- <Resource name="jdbc/db" auth="Container" type="javax.sql.DataSource" 
+	factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" defaultAutoCommit="true" 
+	driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://host/dbname?user=dbuser&amp;password=dbpassword"/> -->

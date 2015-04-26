@@ -1,0 +1,13 @@
+-Dserver.env=TEST -DldapUrl=ldaps://ldap.echostar-test.com:636 -DldapUserPattern=echostar-test -Dserver.dataSource=NO -XX:-UseSplitVerifier
+-Dserver.env=DEV -DldapUrl=ldaps://ldap.echostar-dev.com:636 -DldapUserPattern=echostar-dev -DdbUser=SvcVMDATA_Write -DdbPasswprd=8oHpDxm8i5MsEWibWh4C
+
+
+ldapUserPattern= 
+	echostar-dev
+	echostar-test
+	echostar
+
+DldapUrl=
+	ldaps://ldap.echostar-dev.com:636
+	ldaps://ldap.echostar-test.com:636
+	ldaps://merldapvipb.echostar.com:636
