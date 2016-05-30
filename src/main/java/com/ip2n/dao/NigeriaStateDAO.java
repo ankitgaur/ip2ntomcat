@@ -39,7 +39,18 @@ public class NigeriaStateDAO {
 
 	public NigeriaState getNigeriaStateById(long id) {
 
-		final String sql = "Select id, name, curr_govt, created_by, created_on, updated_by, updated_on, govts from nigeria_states";
+		final String sql = "Select id, name, curr_govt, created_by, created_on, updated_by, updated_on, govts from nigeria_states where id = "
+				+ id;
+		NigeriaState state = jdbcTemplate.queryForObject(sql,
+				new BeanPropertyRowMapper<NigeriaState>(NigeriaState.class));
+		return state;
+
+	}
+
+	public NigeriaState getNigeriaStateByAbbr(String abbr) {
+
+		final String sql = "Select id, name, curr_govt, created_by, created_on, updated_by, updated_on, govts from nigeria_states where abbr = '"
+				+ abbr + "'";
 		NigeriaState state = jdbcTemplate.queryForObject(sql,
 				new BeanPropertyRowMapper<NigeriaState>(NigeriaState.class));
 		return state;

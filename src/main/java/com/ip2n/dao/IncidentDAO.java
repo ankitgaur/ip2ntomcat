@@ -37,6 +37,29 @@ public class IncidentDAO {
 
 	}
 
+	public List<Incident> getIncidentsByType(String type) {
+
+		final String sql = "Select id, state, govt, type, created_on, report_date, created_by, status, questions, description, image from incidents where type = '"
+				+ type + "' and status != 'DELETED' order by id desc";
+		List<Incident> incidents = jdbcTemplate.query(sql,
+				new BeanPropertyRowMapper<Incident>(Incident.class));
+		return incidents;
+
+	}
+
+	public List<Incident> getIncidentsByStateType(String type, String state) {
+
+		final String sql = "Select id, state, govt, type, created_on, report_date, created_by, status, questions, description, image from incidents where type = '"
+				+ type
+				+ "' and state = '"
+				+ state
+				+ "' and status != 'DELETED' order by id desc";
+		List<Incident> incidents = jdbcTemplate.query(sql,
+				new BeanPropertyRowMapper<Incident>(Incident.class));
+		return incidents;
+
+	}
+
 	public List<Incident> getIncidentsByPage(int pg, int count) {
 
 		final String sql = "Select id, state, govt, type, created_on, report_date, created_by, status, questions, description, image from incidents where status != 'DELETED' order by id desc LIMIT "

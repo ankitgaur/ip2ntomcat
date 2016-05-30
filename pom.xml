@@ -4,7 +4,7 @@
 	<groupId>com.ip2n</groupId>
 	<artifactId>ip2nservices</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0.0</version>
+	<version>1.0.0.2</version>
 	<name>ip2nservices</name>
 
 	<properties>

@@ -27,8 +27,24 @@
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ipledge_database" />
 		<property name="username" value="ipledge_user" />
 		<property name="password" value="NewpassWord.1" />
+	</bean> 
+	
+	 <!-- <bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ip2n_nigeria_incidents" />
+		<property name="username" value="root" />
+		<property name="password" value="test123" />
 	</bean>
 
+	<bean name="jomDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ipledge_database" />
+		<property name="username" value="root" />
+		<property name="password" value="test123" />
+	</bean>
+ 	--> 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->
