@@ -38,10 +38,20 @@ public class StatisticsController {
 	@Autowired
 	StatisticsDAO statisticsDAO;
 
+	private Map<String, DataTable> cache = new HashMap<String, DataTable>();
+
 	@RequestMapping(value = "/stats/regions", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getAllRegions() {
 
-		DataTable dt = new DataTable();
+		DataTable dt = null;
+
+		dt = cache.get("/stats/regions");
+		if (dt != null) {
+			return dt;
+		}
+
+		dt = new DataTable();
+
 		List<Cols> cols = new ArrayList<Cols>();
 		dt.setCols(cols);
 
@@ -85,43 +95,82 @@ public class StatisticsController {
 			rows.setC(c);
 			rws.add(rows);
 		}
+
+		cache.put("/stats/regions", dt);
 		return dt;
 	}
 
+	
 	@RequestMapping(value = "/stats/types", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getIncidentTypesForAllRegions() {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/types");
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO.getIncidentTypeStats();
 
-		return fillDataTable(rs, "Incident Type", "Count");
+		dt = fillDataTable(rs, "Incident Type", "Count");
+		cache.put("/stats/types", dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/stats/types/{region}", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getIncidentTypesForRegion(@PathVariable String region) {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/types/" + region);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO.getIncidentTypeStats(region);
 
-		return fillDataTable(rs, "Incident Type", "Count");
+		dt = fillDataTable(rs, "Incident Type", "Count");
+		cache.put("/stats/types/" + region, dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/stats/type/{type}", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getStatsForType(@PathVariable String type)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/type/" + type);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO.getIncidentTypeStats(null,
 				type.replace("_", " "));
 
-		return fillDataTable(rs, "Incident Type", "Count");
+		dt = fillDataTable(rs, "Incident Type", "Count");
+		cache.put("/stats/type/" + type, dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/stats/allstate/{type}", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getStatsForTypeBystate(@PathVariable String type)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/allstate/" + type);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO
 				.getIncidentTypeForAllStates(type.replace("_", " "));
 
-		return fillDataTable(rs, "State", "Count");
+		dt = fillDataTable(rs, "State", "Count");
+		cache.put("/stats/allstate/" + type, dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/stats/cat/{type}/{cat}", produces = "application/json", method = RequestMethod.GET)
@@ -129,10 +178,19 @@ public class StatisticsController {
 			@PathVariable String cat) throws JsonGenerationException,
 			JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/cat/" + type + "/" + cat);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO.getInciCatStats(
 				type.replace("_", " "), cat);
 
-		return fillDataTable(rs, "State", "Count");
+		dt = fillDataTable(rs, "State", "Count");
+		cache.put("/stats/cat/" + type + "/" + cat, dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/stats/type/{type}/{region}", produces = "application/json", method = RequestMethod.GET)
@@ -140,9 +198,18 @@ public class StatisticsController {
 			@PathVariable String region) throws JsonGenerationException,
 			JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/type/" + type + "/" + region);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<IncidentTypeStat> rs = statisticsDAO.getIncidentTypeStats(region,
 				type.replace("_", " "));
-		return fillDataTable(rs, "Incident Type", "Count");
+		dt = fillDataTable(rs, "Incident Type", "Count");
+		cache.put("/stats/type/" + type + "/" + region, dt);
+		return dt;
 
 	}
 
@@ -150,8 +217,17 @@ public class StatisticsController {
 	public DataTable getStatsForGovtState(@PathVariable String region)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/govt/" + region);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<MultiDimStat> rs = statisticsDAO.getGovtStatsForState(region);
-		return fillDataTableM(rs);
+		dt = fillDataTableM(rs);
+		cache.put("/stats/govt/" + region, dt);
+		return dt;
 
 	}
 
@@ -159,8 +235,17 @@ public class StatisticsController {
 	public DataTable getStatsForGovt() throws JsonGenerationException,
 			JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/govt");
+		if (dt != null) {
+			return dt;
+		}
+
 		List<MultiDimStat> rs = statisticsDAO.getGovtStats();
-		return fillDataTableM(rs);
+		dt = fillDataTableM(rs);
+		cache.put("/stats/govt", dt);
+		return dt;
 
 	}
 
@@ -168,8 +253,17 @@ public class StatisticsController {
 	public DataTable getStatsForStates() throws JsonGenerationException,
 			JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/stats/states");
+		if (dt != null) {
+			return dt;
+		}
+
 		List<MultiDimStat> rs = statisticsDAO.getMultiDimRegionStats();
-		return fillDataTableM(rs);
+		dt = fillDataTableM(rs);
+		cache.put("/stats/states", dt);
+		return dt;
 
 	}
 
@@ -177,18 +271,36 @@ public class StatisticsController {
 	public DataTable getMDIncidentTypesForAllRegions()
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/mstats/types");
+		if (dt != null) {
+			return dt;
+		}
+
 		List<MultiDimStat> rs = statisticsDAO.getMultiDimInciStats(null);
 
-		return fillDataTableM(rs);
+		dt = fillDataTableM(rs);
+		cache.put("/mstats/types", dt);
+		return dt;
 	}
 
 	@RequestMapping(value = "/mstats/types/{region}", produces = "application/json", method = RequestMethod.GET)
 	public DataTable getMDIncidentTypesForRegion(@PathVariable String region)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		DataTable dt = null;
+
+		dt = cache.get("/mstats/types/" + region);
+		if (dt != null) {
+			return dt;
+		}
+
 		List<MultiDimStat> rs = statisticsDAO.getMultiDimInciStats(region);
 
-		return fillDataTableM(rs);
+		dt = fillDataTableM(rs);
+		cache.put("/mstats/types/" + region, dt);
+		return dt;
 	}
 
 	private DataTable fillDataTable(List<IncidentTypeStat> rs, String stringx,
